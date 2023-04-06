@@ -17,10 +17,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.devpaul.ecommerceappmvvm.ui.theme.Blue500
 import com.devpaul.ecommerceappmvvm.ui.theme.EcommerceAppMVVMTheme
 
 class MainActivity : ComponentActivity() {
@@ -90,7 +95,7 @@ fun LoginContent() {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(300.dp),
+                    .height(330.dp),
                 shape = RoundedCornerShape(
                     topEnd = 40.dp,
                     topStart = 40.dp,
@@ -98,7 +103,7 @@ fun LoginContent() {
                 backgroundColor = Color.White
             ) {
                 Column(
-                    Modifier.padding(20.dp)
+                    Modifier.padding(top = 30.dp,  end = 30.dp, start = 30.dp)
                 ) {
                     Text(
                         modifier = Modifier.padding(bottom = 20.dp),
@@ -107,34 +112,59 @@ fun LoginContent() {
                         fontSize = 20.sp,
                         color = Color.Black
                     )
-                    TextField(
+                    OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = "",
                         onValueChange = {},
                         label = {
                             Text(text = "Correo electronico")
-                        }
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Email,
+                                contentDescription = "Email icon",
+                                tint = Blue500
+                            )
+                        },
+//                        colors = TextFieldDefaults.textFieldColors(
+//                            backgroundColor = Color.White
+//                        )
                     )
-                    TextField(
+                    OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = "",
                         onValueChange = {},
                         label = {
                             Text(text = "Contraseña")
-                        }
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = "Email icon",
+                                tint = Blue500
+                            )
+                        },
+//                        colors = TextFieldDefaults.textFieldColors(
+//                            backgroundColor = Color.White
+//                        )
                     )
                     Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = { })
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(top = 16.dp),
+                        onClick = { }
+                    )
                     {
-                        Text(text = "Login")
+                        Text(text = "Iniciar Sesión")
                     }
                     Row(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(top = 18.dp , bottom = 20.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(text = "No tienes cuenta?")
                         Text(
+                            modifier = Modifier
+                                .padding(start = 10.dp),
                             text = "Registrate",
                             color = Color.Blue
                         )
