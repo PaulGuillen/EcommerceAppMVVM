@@ -36,6 +36,6 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     EcommerceAppMVVMTheme {
-        Greeting("Android")
+        Greeting("")
     }
 }
