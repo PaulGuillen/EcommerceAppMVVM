@@ -4,16 +4,23 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,7 +66,9 @@ fun LoginContent() {
             })
         )
         Column(
-            modifier = Modifier.fillMaxWidth().padding(top = 50.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 50.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
@@ -74,8 +83,65 @@ fun LoginContent() {
                 text = "ECOMMERCE APP",
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
-                fontSize = 20.sp
+                fontSize = 22.sp
             )
+            Spacer(
+                modifier = Modifier.weight(1f)
+            )
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
+                shape = RoundedCornerShape(
+                    topEnd = 40.dp,
+                    topStart = 40.dp,
+                ),
+                backgroundColor = Color.White
+            ) {
+                Column(
+                    Modifier.padding(20.dp)
+                ) {
+                    Text(
+                        modifier = Modifier.padding(bottom = 20.dp),
+                        text = "INGRESAR",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = Color.Black
+                    )
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = "",
+                        onValueChange = {},
+                        label = {
+                            Text(text = "Correo electronico")
+                        }
+                    )
+                    TextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        value = "",
+                        onValueChange = {},
+                        label = {
+                            Text(text = "Contraseña")
+                        }
+                    )
+                    Button(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = {  })
+                    {
+                        Text(text = "Login")
+                    }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "No tienes cuenta?")
+                        Text(
+                            text = "Registrate",
+                            color = Color.Blue
+                        )
+                    }
+                }
+            }
         }
     }
 }
