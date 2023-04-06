@@ -1,6 +1,7 @@
 package com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -28,13 +30,24 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.devpaul.ecommerceappmvvm.R
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultButton
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultTextField
+import com.devpaul.ecommerceappmvvm.presentation.navigation.screen.AuthScreen
+import com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.LoginScreen
+import com.devpaul.ecommerceappmvvm.presentation.ui.theme.Blue700
+import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
+
 @Composable
-fun LoginContent(paddingValues: PaddingValues) {
+fun LoginContent(
+    paddingValues: PaddingValues,
+    navController: NavHostController
+) {
     Box(
         modifier = Modifier
             .padding(paddingValues = paddingValues)
@@ -130,13 +143,28 @@ fun LoginContent(paddingValues: PaddingValues) {
                         Text(text = "No tienes cuenta?")
                         Text(
                             modifier = Modifier
-                                .padding(start = 10.dp),
+                                .padding(start = 10.dp)
+                                .clickable {
+                                    navController.navigate(
+                                        route = AuthScreen.Register.route
+                                    )
+                                },
                             text = "Registrate",
-                            color = Color.Blue
+                            color = Blue700
                         )
                     }
                 }
             }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    EcommerceAppMVVMTheme {
+        Scaffold() { paddingValues ->
+            LoginContent(paddingValues, rememberNavController())
         }
     }
 }

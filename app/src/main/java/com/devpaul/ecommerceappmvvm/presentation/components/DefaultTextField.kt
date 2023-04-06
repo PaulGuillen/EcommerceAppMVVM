@@ -1,15 +1,17 @@
 package com.devpaul.ecommerceappmvvm.presentation.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.LoginScreen
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.Blue500
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
 
@@ -46,10 +48,18 @@ fun DefaultTextField(
     )
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
     EcommerceAppMVVMTheme {
-        LoginScreen()
+        DefaultTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = "",
+            onValueChange = {},
+            labelText = "Correo electronico",
+            icon = Icons.Default.Email,
+            contentDescription = "Email icon",
+            keyboardType = KeyboardType.Email
+        )
     }
 }

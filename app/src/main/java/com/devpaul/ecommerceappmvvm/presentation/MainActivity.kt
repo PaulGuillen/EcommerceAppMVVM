@@ -7,10 +7,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
-import com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.LoginScreen
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.devpaul.ecommerceappmvvm.presentation.navigation.graph.RootNavGraph
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -19,7 +23,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    LoginScreen()
+                    navController = rememberNavController()
+                    RootNavGraph(navController = navController)
                 }
             }
         }
