@@ -1,12 +1,10 @@
-package com.devpaul.ecommerceappmvvm
+package com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.components
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,9 +16,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -34,31 +30,18 @@ import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.devpaul.ecommerceappmvvm.ui.theme.Blue500
-import com.devpaul.ecommerceappmvvm.ui.theme.EcommerceAppMVVMTheme
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            EcommerceAppMVVMTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    LoginContent()
-                }
-            }
-        }
-    }
-}
+import com.devpaul.ecommerceappmvvm.R
+import com.devpaul.ecommerceappmvvm.presentation.ui.theme.Blue500
 
 @Composable
-fun LoginContent() {
-    Box(modifier = Modifier.fillMaxSize()) {
+fun LoginContent(paddingValues: PaddingValues) {
+    Box(
+        modifier = Modifier
+            .padding(paddingValues = paddingValues)
+            .fillMaxSize()
+    ) {
         Image(
             modifier = Modifier.fillMaxSize(),
             painter = painterResource(id = R.drawable.banner),
@@ -100,10 +83,10 @@ fun LoginContent() {
                     topEnd = 40.dp,
                     topStart = 40.dp,
                 ),
-                backgroundColor = Color.White
+                backgroundColor = Color.White.copy(alpha = 0.7f)
             ) {
                 Column(
-                    Modifier.padding(top = 30.dp,  end = 30.dp, start = 30.dp)
+                    Modifier.padding(top = 30.dp, end = 30.dp, start = 30.dp)
                 ) {
                     Text(
                         modifier = Modifier.padding(bottom = 20.dp),
@@ -149,7 +132,8 @@ fun LoginContent() {
 //                        )
                     )
                     Button(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
                             .padding(top = 16.dp),
                         onClick = { }
                     )
@@ -157,8 +141,9 @@ fun LoginContent() {
                         Text(text = "Iniciar Sesión")
                     }
                     Row(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(top = 18.dp , bottom = 20.dp),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 18.dp, bottom = 20.dp),
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(text = "No tienes cuenta?")
@@ -172,18 +157,5 @@ fun LoginContent() {
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun DefaultPreview() {
-    EcommerceAppMVVMTheme {
-        LoginContent()
     }
 }

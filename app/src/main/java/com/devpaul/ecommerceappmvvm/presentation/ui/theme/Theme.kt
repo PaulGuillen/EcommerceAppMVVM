@@ -1,4 +1,4 @@
-package com.devpaul.ecommerceappmvvm.ui.theme
+package com.devpaul.ecommerceappmvvm.presentation.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
