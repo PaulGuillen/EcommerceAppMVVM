@@ -15,7 +15,7 @@ fun LoginScreen() {
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun DefaultPreview() {
+fun LoginScreenPreview() {
     EcommerceAppMVVMTheme {
         LoginScreen()
     }

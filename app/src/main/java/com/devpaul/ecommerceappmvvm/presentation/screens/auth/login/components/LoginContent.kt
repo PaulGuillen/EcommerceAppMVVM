@@ -13,10 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
@@ -30,11 +27,12 @@ import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.devpaul.ecommerceappmvvm.R
-import com.devpaul.ecommerceappmvvm.presentation.ui.theme.Blue500
-
+import com.devpaul.ecommerceappmvvm.presentation.components.DefaultButton
+import com.devpaul.ecommerceappmvvm.presentation.components.DefaultTextField
 @Composable
 fun LoginContent(paddingValues: PaddingValues) {
     Box(
@@ -95,51 +93,34 @@ fun LoginContent(paddingValues: PaddingValues) {
                         fontSize = 20.sp,
                         color = Color.Black
                     )
-                    OutlinedTextField(
+                    DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = "",
                         onValueChange = {},
-                        label = {
-                            Text(text = "Correo electronico")
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Email,
-                                contentDescription = "Email icon",
-                                tint = Blue500
-                            )
-                        },
-//                        colors = TextFieldDefaults.textFieldColors(
-//                            backgroundColor = Color.White
-//                        )
+                        labelText = "Correo electronico",
+                        icon = Icons.Default.Email,
+                        contentDescription = "Email icon",
+                        keyboardType = KeyboardType.Email
                     )
-                    OutlinedTextField(
+                    DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
                         value = "",
                         onValueChange = {},
-                        label = {
-                            Text(text = "Contraseña")
-                        },
-                        leadingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = "Email icon",
-                                tint = Blue500
-                            )
-                        },
-//                        colors = TextFieldDefaults.textFieldColors(
-//                            backgroundColor = Color.White
-//                        )
+                        labelText = "Contraseña",
+                        icon = Icons.Default.Lock,
+                        contentDescription = "Password icon",
+                        keyboardType = KeyboardType.Password
                     )
-                    Button(
+                    Spacer(modifier = Modifier.height(10.dp))
+                    DefaultButton(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 16.dp),
-                        onClick = { }
+                            .height(40.dp),
+                        text = "Iniciar Sesión",
+                        onClick = {},
+                        contentDescription = "Button login"
                     )
-                    {
-                        Text(text = "Iniciar Sesión")
-                    }
+                    Spacer(modifier = Modifier.height(10.dp))
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
