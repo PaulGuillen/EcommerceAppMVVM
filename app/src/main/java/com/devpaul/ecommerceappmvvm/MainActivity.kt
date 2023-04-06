@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             EcommerceAppMVVMTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -62,8 +61,8 @@ fun LoginContent() {
             contentScale = ContentScale.Crop,
             colorFilter = ColorFilter.colorMatrix(
                 ColorMatrix().apply {
-                setToScale(0.5f,0.5f,0.5f,1f)
-            })
+                    setToScale(0.5f, 0.5f, 0.5f, 1f)
+                })
         )
         Column(
             modifier = Modifier
@@ -126,7 +125,7 @@ fun LoginContent() {
                     )
                     Button(
                         modifier = Modifier.fillMaxWidth(),
-                        onClick = {  })
+                        onClick = { })
                     {
                         Text(text = "Login")
                     }
