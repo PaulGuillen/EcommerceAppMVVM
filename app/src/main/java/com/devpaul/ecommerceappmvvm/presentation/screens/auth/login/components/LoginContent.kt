@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -33,20 +35,22 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.devpaul.ecommerceappmvvm.R
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultButton
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultTextField
 import com.devpaul.ecommerceappmvvm.presentation.navigation.screen.AuthScreen
-import com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.LoginScreen
+import com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.LoginViewModel
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.Blue700
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
 
 @Composable
 fun LoginContent(
     paddingValues: PaddingValues,
-    navController: NavHostController
+    navController: NavHostController,
+    vm : LoginViewModel = hiltViewModel()
 ) {
     Box(
         modifier = Modifier
@@ -98,7 +102,9 @@ fun LoginContent(
                 backgroundColor = Color.White.copy(alpha = 0.7f)
             ) {
                 Column(
-                    Modifier.padding(top = 30.dp, end = 30.dp, start = 30.dp)
+                    Modifier
+                        .padding(top = 30.dp, end = 30.dp, start = 30.dp)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     Text(
                         modifier = Modifier.padding(bottom = 20.dp),
@@ -109,8 +115,10 @@ fun LoginContent(
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = vm.email,
+                        onValueChange = {text ->
+                            vm.email = text
+                        },
                         labelText = "Correo electronico",
                         icon = Icons.Default.Email,
                         contentDescription = "Email icon",
@@ -118,8 +126,10 @@ fun LoginContent(
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = vm.password,
+                        onValueChange = {text ->
+                            vm.password = text
+                        },
                         labelText = "Contraseña",
                         icon = Icons.Default.Lock,
                         contentDescription = "Password icon",
