@@ -39,13 +39,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.devpaul.ecommerceappmvvm.R
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultButton
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultTextField
+import com.devpaul.ecommerceappmvvm.presentation.screens.auth.register.RegisterViewModel
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
 
 @Composable
-fun RegisterComponent(paddingValues: PaddingValues) {
+fun RegisterComponent(paddingValues: PaddingValues, vm: RegisterViewModel = hiltViewModel()) {
+
+    var state = vm.state
+
     Box(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -116,24 +121,30 @@ fun RegisterComponent(paddingValues: PaddingValues) {
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.name,
+                        onValueChange = {
+                            vm.onNameInput(it)
+                        },
                         labelText = "Nombres",
                         icon = Icons.Default.Person,
                         contentDescription = ""
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.lastname,
+                        onValueChange = {
+                            vm.onLastNameInput(it)
+                        },
                         labelText = "Apellidos",
                         icon = Icons.Outlined.Person,
                         contentDescription = ""
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.email,
+                        onValueChange = {
+                            vm.onEmailInput(it)
+                        },
                         labelText = "Correo electronico",
                         icon = Icons.Default.Email,
                         contentDescription = "",
@@ -141,8 +152,10 @@ fun RegisterComponent(paddingValues: PaddingValues) {
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.phone,
+                        onValueChange = {
+                            vm.onPhoneInput(it)
+                        },
                         labelText = "Teléfono",
                         icon = Icons.Default.Phone,
                         contentDescription = "",
@@ -150,21 +163,27 @@ fun RegisterComponent(paddingValues: PaddingValues) {
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.password,
+                        onValueChange = {
+                            vm.onPasswordInput(it)
+                        },
                         labelText = "Contraseña",
                         icon = Icons.Default.Lock,
                         contentDescription = "",
-                        keyboardType = KeyboardType.Password
+                        keyboardType = KeyboardType.Password,
+                        hideText = true
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.confirmPassword,
+                        onValueChange = {
+                            vm.onConfirmPasswordInput(it)
+                        },
                         labelText = "Confirmar Contraseña",
                         icon = Icons.Outlined.Lock,
                         contentDescription = "",
-                        keyboardType = KeyboardType.Password
+                        keyboardType = KeyboardType.Password,
+                        hideText = true,
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     DefaultButton(

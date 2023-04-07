@@ -52,6 +52,8 @@ fun LoginContent(
     navController: NavHostController,
     vm : LoginViewModel = hiltViewModel()
 ) {
+    val state = vm.state
+
     Box(
         modifier = Modifier
             .padding(paddingValues = paddingValues)
@@ -115,9 +117,9 @@ fun LoginContent(
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = vm.email,
+                        value = state.email,
                         onValueChange = {text ->
-                            vm.email = text
+                            vm.onEmailInput(text)
                         },
                         labelText = "Correo electronico",
                         icon = Icons.Default.Email,
@@ -126,14 +128,15 @@ fun LoginContent(
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = vm.password,
+                        value = state.password,
                         onValueChange = {text ->
-                            vm.password = text
+                            vm.onPasswordInput(text)
                         },
                         labelText = "Contraseña",
                         icon = Icons.Default.Lock,
                         contentDescription = "Password icon",
-                        keyboardType = KeyboardType.Password
+                        keyboardType = KeyboardType.Password,
+                        hideText = true
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     DefaultButton(
