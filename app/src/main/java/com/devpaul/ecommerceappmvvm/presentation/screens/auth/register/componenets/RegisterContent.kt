@@ -1,5 +1,6 @@
 package com.devpaul.ecommerceappmvvm.presentation.screens.auth.register.componenets
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,25 +28,40 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.devpaul.ecommerceappmvvm.R
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultButton
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultTextField
+import com.devpaul.ecommerceappmvvm.presentation.screens.auth.register.RegisterViewModel
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
 
 @Composable
-fun RegisterComponent(paddingValues: PaddingValues) {
+fun RegisterComponent(paddingValues: PaddingValues, vm: RegisterViewModel = hiltViewModel()) {
+
+    var state = vm.state
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = vm.errorMessage) {
+        if (vm.errorMessage != "") {
+            Toast.makeText(context, vm.errorMessage, Toast.LENGTH_LONG).show()
+        }
+    }
+
+
     Box(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -116,24 +132,30 @@ fun RegisterComponent(paddingValues: PaddingValues) {
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.name,
+                        onValueChange = {
+                            vm.onNameInput(it)
+                        },
                         labelText = "Nombres",
                         icon = Icons.Default.Person,
                         contentDescription = ""
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.lastname,
+                        onValueChange = {
+                            vm.onLastNameInput(it)
+                        },
                         labelText = "Apellidos",
                         icon = Icons.Outlined.Person,
                         contentDescription = ""
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.email,
+                        onValueChange = {
+                            vm.onEmailInput(it)
+                        },
                         labelText = "Correo electronico",
                         icon = Icons.Default.Email,
                         contentDescription = "",
@@ -141,8 +163,10 @@ fun RegisterComponent(paddingValues: PaddingValues) {
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.phone,
+                        onValueChange = {
+                            vm.onPhoneInput(it)
+                        },
                         labelText = "Teléfono",
                         icon = Icons.Default.Phone,
                         contentDescription = "",
@@ -150,21 +174,27 @@ fun RegisterComponent(paddingValues: PaddingValues) {
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.password,
+                        onValueChange = {
+                            vm.onPasswordInput(it)
+                        },
                         labelText = "Contraseña",
                         icon = Icons.Default.Lock,
                         contentDescription = "",
-                        keyboardType = KeyboardType.Password
+                        keyboardType = KeyboardType.Password,
+                        hideText = true
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.confirmPassword,
+                        onValueChange = {
+                            vm.onConfirmPasswordInput(it)
+                        },
                         labelText = "Confirmar Contraseña",
                         icon = Icons.Outlined.Lock,
                         contentDescription = "",
-                        keyboardType = KeyboardType.Password
+                        keyboardType = KeyboardType.Password,
+                        hideText = true,
                     )
                     Spacer(modifier = Modifier.height(15.dp))
                     DefaultButton(
@@ -172,7 +202,7 @@ fun RegisterComponent(paddingValues: PaddingValues) {
                             .fillMaxWidth()
                             .height(50.dp),
                         text = "Confirmar",
-                        onClick = { })
+                        onClick = { vm.validateForm() })
                 }
             }
         }

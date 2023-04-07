@@ -11,7 +11,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.devpaul.ecommerceappmvvm.presentation.navigation.graph.RootNavGraph
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private lateinit var navController: NavHostController
