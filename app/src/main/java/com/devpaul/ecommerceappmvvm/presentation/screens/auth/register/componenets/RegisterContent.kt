@@ -1,5 +1,6 @@
 package com.devpaul.ecommerceappmvvm.presentation.screens.auth.register.componenets
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,12 +28,14 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -50,6 +53,14 @@ import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
 fun RegisterComponent(paddingValues: PaddingValues, vm: RegisterViewModel = hiltViewModel()) {
 
     var state = vm.state
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = vm.errorMessage) {
+        if (vm.errorMessage != "") {
+            Toast.makeText(context, vm.errorMessage, Toast.LENGTH_LONG).show()
+        }
+    }
+
 
     Box(
         modifier = Modifier
@@ -191,7 +202,7 @@ fun RegisterComponent(paddingValues: PaddingValues, vm: RegisterViewModel = hilt
                             .fillMaxWidth()
                             .height(50.dp),
                         text = "Confirmar",
-                        onClick = { })
+                        onClick = { vm.validateForm() })
                 }
             }
         }
