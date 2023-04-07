@@ -1,16 +1,21 @@
 package com.devpaul.ecommerceappmvvm.presentation.screens.auth.register.componenets
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -43,12 +48,13 @@ import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
 fun RegisterComponent(paddingValues: PaddingValues) {
     Box(
         modifier = Modifier
+            .verticalScroll(rememberScrollState())
             .padding(paddingValues = paddingValues)
             .fillMaxSize()
     ) {
         Image(
             modifier = Modifier.fillMaxSize(),
-            painter = painterResource(id = R.drawable.banner),
+            painter = painterResource(id = R.drawable.banner_form),
             contentDescription = "Registro",
             contentScale = ContentScale.Crop,
             colorFilter = ColorFilter.colorMatrix(
@@ -61,38 +67,50 @@ fun RegisterComponent(paddingValues: PaddingValues) {
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
+            Row(
                 modifier = Modifier
-                    .height(100.dp)
-                    .width(100.dp)
-                    .padding(top = 20.dp),
-                painter = painterResource(id = R.drawable.user_image),
-                contentDescription = ""
-            )
-            Text(
-                modifier = Modifier.padding(top = 7.dp),
-                text = "Ingresa esta información",
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = Color.White
-            )
-            Spacer(modifier = Modifier.weight(1f).height(10.dp))
+                    .fillMaxWidth()
+                    .padding(top = 35.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    modifier = Modifier
+                        .height(100.dp)
+                        .width(100.dp)
+                        .padding(top = 20.dp),
+                    painter = painterResource(id = R.drawable.user_image),
+                    contentDescription = ""
+                )
+                Text(
+                    modifier = Modifier.padding(top = 7.dp),
+                    text = "Ingresa esta información",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = Color.White
+                )
+            }
+            Spacer(modifier = Modifier.weight(1f))
             Card(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 40.dp),
                 shape = RoundedCornerShape(
                     topStart = 40.dp,
-                    topEnd = 40.dp
+                    topEnd = 40.dp,
+                    bottomEnd = 40.dp,
+                    bottomStart = 40.dp
                 ),
                 backgroundColor = Color.White.copy(alpha = 0.8f)
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(top = 30.dp, start = 30.dp, end = 30.dp , bottom = 20.dp)
+                        .padding(top = 30.dp, start = 30.dp, end = 30.dp, bottom = 30.dp)
                 ) {
                     Text(
                         modifier = Modifier.padding(bottom = 20.dp),
                         fontWeight = FontWeight.Bold,
-                        fontSize =  20.sp,
+                        fontSize = 20.sp,
                         text = "REGISTRARSE",
                         color = Color.Black
                     )
@@ -154,7 +172,7 @@ fun RegisterComponent(paddingValues: PaddingValues) {
                             .fillMaxWidth()
                             .height(50.dp),
                         text = "Confirmar",
-                        onClick = {  })
+                        onClick = { })
                 }
             }
         }

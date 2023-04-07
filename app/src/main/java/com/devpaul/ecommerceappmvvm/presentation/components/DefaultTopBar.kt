@@ -1,6 +1,5 @@
 package com.devpaul.ecommerceappmvvm.presentation.components
 
-import android.icu.text.CaseMap.Title
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -15,9 +14,9 @@ import androidx.navigation.NavHostController
 @Composable
 fun DefaultTopBar(
     title: String,
-    upAvailable : Boolean = false,
-    navController : NavHostController? = null
-){
+    upAvailable: Boolean = false,
+    navController: NavHostController? = null
+) {
     TopAppBar(
         title = {
             Text(
@@ -27,7 +26,7 @@ fun DefaultTopBar(
         },
         backgroundColor = Color.White,
         navigationIcon = {
-            if (upAvailable){
+            if (upAvailable) {
                 IconButton(onClick = { navController?.popBackStack() }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
