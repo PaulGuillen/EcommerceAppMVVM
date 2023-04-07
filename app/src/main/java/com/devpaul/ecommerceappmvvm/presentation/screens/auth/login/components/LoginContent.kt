@@ -1,5 +1,6 @@
 package com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -21,33 +24,46 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.devpaul.ecommerceappmvvm.R
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultButton
 import com.devpaul.ecommerceappmvvm.presentation.components.DefaultTextField
 import com.devpaul.ecommerceappmvvm.presentation.navigation.screen.AuthScreen
-import com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.LoginScreen
+import com.devpaul.ecommerceappmvvm.presentation.screens.auth.login.LoginViewModel
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.Blue700
 import com.devpaul.ecommerceappmvvm.presentation.ui.theme.EcommerceAppMVVMTheme
 
 @Composable
 fun LoginContent(
     paddingValues: PaddingValues,
-    navController: NavHostController
+    navController: NavHostController,
+    vm: LoginViewModel = hiltViewModel()
 ) {
+    val state = vm.state
+    val context = LocalContext.current
+
+    LaunchedEffect(key1 = vm.errorMessage) {
+        if (vm.errorMessage != "") {
+            Toast.makeText(context, vm.errorMessage, Toast.LENGTH_LONG).show()
+        }
+    }
+
     Box(
         modifier = Modifier
             .padding(paddingValues = paddingValues)
@@ -98,7 +114,9 @@ fun LoginContent(
                 backgroundColor = Color.White.copy(alpha = 0.7f)
             ) {
                 Column(
-                    Modifier.padding(top = 30.dp, end = 30.dp, start = 30.dp)
+                    Modifier
+                        .padding(top = 30.dp, end = 30.dp, start = 30.dp)
+                        .verticalScroll(rememberScrollState())
                 ) {
                     Text(
                         modifier = Modifier.padding(bottom = 20.dp),
@@ -109,8 +127,10 @@ fun LoginContent(
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.email,
+                        onValueChange = { text ->
+                            vm.onEmailInput(text)
+                        },
                         labelText = "Correo electronico",
                         icon = Icons.Default.Email,
                         contentDescription = "Email icon",
@@ -118,12 +138,15 @@ fun LoginContent(
                     )
                     DefaultTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = "",
-                        onValueChange = {},
+                        value = state.password,
+                        onValueChange = { text ->
+                            vm.onPasswordInput(text)
+                        },
                         labelText = "Contraseña",
                         icon = Icons.Default.Lock,
                         contentDescription = "Password icon",
-                        keyboardType = KeyboardType.Password
+                        keyboardType = KeyboardType.Password,
+                        hideText = true
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     DefaultButton(
@@ -131,7 +154,9 @@ fun LoginContent(
                             .fillMaxWidth()
                             .height(40.dp),
                         text = "Iniciar Sesión",
-                        onClick = {},
+                        onClick = {
+                            vm.validateForm()
+                        },
                         contentDescription = "Button login"
                     )
                     Spacer(modifier = Modifier.height(10.dp))
